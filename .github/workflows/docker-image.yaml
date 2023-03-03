@@ -63,7 +63,7 @@ jobs:
       - name: Build and push image to ACR
         run: |
           pushd productpage
-            az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.run_number }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
+            az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/productpage:${{ github.run_number }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
           popd
   buildImage-ratings:
     permissions:
