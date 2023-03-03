@@ -163,14 +163,12 @@ jobs:
 
       - name: Push to gitops repository
         run: |
-          pwd
           git clone https://WorldCenterNuri:${{ secrets.ACCESS_TOKEN }}@github.com/WorldCenterNuri/PocShowRoom-env.git
-          ls -la
-          cp -rf ./bookinfo-deployment.yaml ./PocShowRoom-env/manifests/bookinfo-deployment.yaml
-          cp -rf ./kube-template/bookinfo-svc.yaml ./PocShowRoom-env/manifests/bookinfo-svc.yaml
-          cd ./PocShowRoom-env
-          git config --global user.email "psangah28@gmail.com"
-          git config --global user.name "nuripark"
+          cd privateshowroom-private-env
+          cp -rf ../kube-template/*.yaml manifests/
+          cp -rf ../bookinfo-deployment.yaml manifests/bookinfo-deployment.yaml
+          git config --global user.email "gitops@mtcazsa1.dev"
+          git config --global user.name "gitops"
           git add .
           git commit -m "${{ github.run_number }}"
           git push
