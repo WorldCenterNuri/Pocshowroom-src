@@ -32,6 +32,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  namespace: bookinfo
   name: bookinfo-details
   labels:
     account: details
@@ -72,6 +73,7 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  namespace: bookinfo
   name: bookinfo-ratings
   labels:
     account: ratings
@@ -112,6 +114,7 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  namespace: bookinfo
   name: bookinfo-reviews
   labels:
     account: reviews
@@ -248,6 +251,7 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  namespace: bookinfo
   name: bookinfo-productpage
   labels:
     account: productpage
