@@ -163,8 +163,9 @@ jobs:
 
       - name: Push to gitops repository
         run: |
-          ls -la
+          pwd
           git clone https://WorldCenterNuri:${{ secrets.ACCESS_TOKEN }}@github.com/WorldCenterNuri/PocShowRoom-env.git
+          ls -la
           cp -rf ./bookinfo-deployment.yaml ./PocShowRoom-env/manifests/bookinfo-deployment.yaml
           cp -rf ./kube-template/bookinfo-svc.yaml ./PocShowRoom-env/manifests/bookinfo-svc.yaml
           cd ./PocShowRoom-env
