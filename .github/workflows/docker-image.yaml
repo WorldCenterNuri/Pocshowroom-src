@@ -35,10 +35,10 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: "nurishowroomcr"
+  AZURE_CONTAINER_REGISTRY: "nurishowroomcr2"
   CONTAINER_NAME: "bookinfo"
-  RESOURCE_GROUP: "scenario1-rg"
-  CLUSTER_NAME: "aks-scenario1"
+  RESOURCE_GROUP: "scenario2-rg"
+  CLUSTER_NAME: "aks-scenario2"
   # DEPLOYMENT_MANIFEST_PATH: "your-deployment-manifest-path"
 
 jobs:
@@ -145,30 +145,30 @@ jobs:
             popd
           popd
 
-  createmanifests:
-    permissions:
-      actions: read
-      contents: read
-      id-token: write
-    runs-on: ubuntu-22.04
-    needs: [buildImage-productpage, buildImage-ratings, buildImage-details, buildImage-reviews]
-    steps:
-      # Checks out the repository this file is in
-      - uses: actions/checkout@v3
+#   createmanifests:
+#     permissions:
+#       actions: read
+#       contents: read
+#       id-token: write
+#     runs-on: ubuntu-22.04
+#     needs: [buildImage-productpage, buildImage-ratings, buildImage-details, buildImage-reviews]
+#     steps:
+#       # Checks out the repository this file is in
+#       - uses: actions/checkout@v3
 
-      - name: Edit manifest files
-        run: |
-          cat ./kube-template/bookinfo-deployment.yaml | sed -e "s|ACR_REPO_URL|${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io|;s|BUILD_ID|${{ github.run_number }}|" > bookinfo-deployment.yaml
-          cat bookinfo-deployment.yaml
+#       - name: Edit manifest files
+#         run: |
+#           cat ./kube-template/bookinfo-deployment.yaml | sed -e "s|ACR_REPO_URL|${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io|;s|BUILD_ID|${{ github.run_number }}|" > bookinfo-deployment.yaml
+#           cat bookinfo-deployment.yaml
 
-      - name: Push to gitops repository
-        run: |
-          git clone https://WorldCenterNuri:${{ secrets.ACCESS_TOKEN }}@github.com/WorldCenterNuri/PocShowRoom-env.git
-          cd PocShowRoom-env
-          cp -rf ../kube-template/*.yaml manifests/
-          cp -rf ../bookinfo-deployment.yaml manifests/bookinfo-deployment.yaml
-          git config --global user.email "gitops@mtcazsa1.dev"
-          git config --global user.name "gitops"
-          git add .
-          git commit -m "${{ github.run_number }}"
-          git push
+#       - name: Push to gitops repository
+#         run: |
+#           git clone https://WorldCenterNuri:${{ secrets.ACCESS_TOKEN }}@github.com/WorldCenterNuri/PocShowRoom-env.git
+#           cd PocShowRoom-env
+#           cp -rf ../kube-template/*.yaml manifests/
+#           cp -rf ../bookinfo-deployment.yaml manifests/bookinfo-deployment.yaml
+#           git config --global user.email "gitops@mtcazsa1.dev"
+#           git config --global user.name "gitops"
+#           git add .
+#           git commit -m "${{ github.run_number }}"
+#           git push
